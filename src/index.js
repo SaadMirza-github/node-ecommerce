@@ -16,7 +16,7 @@ require('./config/db')();
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use('/api/users', userRoutes);
-app.use('/api/blogs', blogRoutes);
+
 
 
 const port = app.get('port');
