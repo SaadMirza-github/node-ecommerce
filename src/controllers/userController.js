@@ -22,12 +22,19 @@ exports.registerUser = async (req, res) => {
     // Hash the password
     const saltRounds = 10;  
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Fetch the 'user' role from the database
+    const userRole = await Role.findOne({ name: 'user' });
+    if (!userRole) {
+      return res.status(500).json({ message: 'User role not found. Please seed roles first.' });
+    }
     
     // Create a new user object
     const user = new User({
       username,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      role: userRole._id , // Assign the role ID
     });
     
     // Save the user to the database

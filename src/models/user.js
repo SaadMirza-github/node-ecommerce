@@ -4,6 +4,13 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true,unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  role: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Role', // Reference to the Role model
+    required: true,
+    default: null, // Default role, can be set to 'Customer' or 'User'
+  },
+
   createdAt: {
     type: Date,
     default: Date.now,
